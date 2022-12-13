@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>World Population</title>
+    <style>
+      body {
+        text-align: center;
+        font-size: 48px;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>World Population</h1>
+    <p id="population"></p>
+
+    <script>
+      // Set the initial population value
+      var population = 0;
+
+      // Update the population every 10 seconds using the world population API
+      setInterval(function() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            population = response.total_population.population;
+            document.getElementById("population").innerHTML = population.toLocaleString();
+          }
+        };
+        xhr.open("GET", "https://api.worldbank.org/v2/population/total?format=json", true);
+        xhr.send();
+      }, 10000);
+    </script>
+  </body>
+</html>

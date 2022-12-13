@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <title>USA Population</title>
+  <style>
+    body {
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>USA Population</h1>
+  <p>The population of the USA is: <strong id="population"></strong></p>
+  <script>
+    // use fetch() to call the DataUSA API
+    fetch('https://datausa.io/api/data?drilldowns=Nation&measures=Population')
+      .then(response => response.json())
+      .then(data => {
+        // extract the population from the API response
+        const population = data.data[0].Population;
+
+        // update the page with the populationd
+        document.getElementById('population').innerText = population;
+      });
+  </script>
+</body>
+</html>
+
+
+
+
+
